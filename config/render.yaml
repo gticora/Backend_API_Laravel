@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: laravel-app
+    env: php
+    buildCommand: "composer install && npm install --production"
+    startCommand: "php artisan serve --host 0.0.0.0 --port 8080"
+    envVars:
+      - key: APP_KEY
+        value: "base64:your-app-key"
+      - key: DB_CONNECTION
+        value: "pgsql"
+      - key: DB_HOST
+        value: "dpg-cspd7m0gph6c73d0kn4g-a"
+      - key: DB_DATABASE
+        value: "hoteles_fmwr"
+      - key: DB_USERNAME
+        value: "hoteles_fmwr_user"
+      - key: DB_PASSWORD
+        value: "7ArwbWbQtXzMfwHMioyt370mNCSYrp6F"
+
+postDeploy:
+  - "php artisan migrate --force"
+  - "php artisan optimize"
+  - "php artisan config:cache"
+  - "php artisan route:cache"
+  - "php artisan view:cache"
